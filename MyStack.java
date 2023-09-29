@@ -1,98 +1,117 @@
 
 import java.util.Arrays;
+import java.util.EmptyStackException;
+
 /**
- * Write a description of class MyStack here.
+ * Creates a new Stack implementation that is used as a data structure
+ * to organize and move data. A stack is performed in last in first out 
+ * (LIFO) where the element is added to the top of the stack and the 
+ * element is removed at the top of the stack.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Jiun
+ * @version 9/22
  */
-public class MyStack
-{
-    // instance variables - replace the example below with your own
-    private int[] stack;
+public class MyStack<E> {
+
+    private E[] stack;
     private int size;
-    private int maxSize;
 
     /**
-     * Constructor for objects of class MyStack
+     * Constructs a new Stack given a stack size
+     * 
+     * @param sizeStack the size of the stack
      */
-    public MyStack(int sizeStack)
-    {
-        // initialise instance variables
-        stack = new int[sizeStack];
+    public MyStack() {
         size = 0;
-        maxSize = sizeStack;
+        stack = (E[]) new Object[100];
     }
 
     /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * Puts a given element on the top of the stack     
+     * 
+     * @param element the element to be added to the stack
      */
-    public void push(int element) {
-        stack[size] = element;
-        size++;
-    }
-    
-    public int pop() {
-        size--;
-        int popNum = stack[size];
-        return popNum;
-    }
-    
-    public boolean isEmpty() {
-        
-        if (size == 0) {
-            return true;
+    public void push(E element) throws IndexOutOfBoundsException{
+        if (size == stack.length) {
+            throw new IndexOutOfBoundsException();
         } else {
-            return false;
+            stack[size] = element;
+            size++;
         }
-        
-        
     }
     
-    public int top() {
+    /**
+     * Removes the top element in the stack
+     * 
+     * @return the integer of the removed object
+     */
+    public E pop() throws EmptyStackException {
+        if (size == 0) {
+            throw new EmptyStackException();
+        } else {
+            size--;
+            E pop = stack[size];
+            stack[size] = null;
+            return pop;  
+        }
+    }
+    
+    /**
+     * Checks if the stack is empty
+     * 
+     * @return true if the stack is empty and false if not
+     */
+    public boolean isEmpty() {
+        return size == 0;
+    }
+    
+    /**
+     * Gives the element that is on the top of the stack
+     * 
+     * @return the element at the top of the stack
+     */
+    public E top() {
         return stack[size];
     }
     
+    /**
+     * Returns the size of the stack
+     * 
+     * @return the size of the current stack
+     */
     public int size() {
         return size;
     }
     
+    /**
+     * Indicates if the stack cannot add more elements in the stack
+     * 
+     * @return true if the stack is full and false if not
+     */
     public boolean isFull() {
-        if (size == maxSize) {
-            return true;
-        } else {
-            return false;
-        }
+        return size == stack.length;
     }
     
+    /**
+     * Returns the entire stack from top to bottom in a string
+     * 
+     * @return the elements in the stack from top to bottom as a string
+     */
     public String toString() {
-        int[] newArr = new int[size];
+        String stringStack = "";
         int index = size - 1;
         for (int i = 0; i < size; i++) {
-            newArr[i] = stack[index];
+            if (i == 0) {
+                stringStack += stack[index];
+            } else {
+                stringStack += ", " + stack[index].toString();
+            }
             index--;
         }
         
-        return Arrays.toString(newArr);
+        return stringStack;
+        
     }
     
-    public void testStack() {
-        System.out.println(isEmpty());
-        push(3);
-        System.out.println(isEmpty());
-        push(4);
-        System.out.println(isFull());
-        push(3);
-        push(4);
-        push(5);
-        System.out.println(isFull());
-        int pop = pop();
-        System.out.println(pop);
-        System.out.println(toString());
-        
-        
-    }
+  
 }

@@ -1,131 +1,123 @@
 import java.util.Arrays;
 /**
- * Write a description of class MyQueue here.
+ * Creates a new Queue implementation that is used as a data structure
+ * to organize and move data. A queue is performed in first in first out 
+ * (FIFO) where the element is added to the back of the queue and the 
+ * element is removed at the front of the queue.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Jiun
+ * @version 9/22
  */
-public class MyQueue
+public class MyQueue<E>
 {
-    // instance variables - replace the example below with your own
-    private int[] queue;
+    private E[] queue; 
     private int size;
-    private int maxSize;
     private int back;
     private int front;
 
     /**
-     * Constructor for objects of class MyQueue
+     * Constructs a new Queue given a queue size
+     * 
+     * @param queueSize the size of the queue
      */
-    public MyQueue(int queueSize)
-    {
-        // initialise instance variables
-        queue = new int[queueSize];
+    public MyQueue() {
+        queue = (E[]) new Object[100];
         size = 0;
-        maxSize = queueSize;
         back = 0;
         front = 0;
     }
 
     /**
-     * An example of a method - replace this comment with your own
+     * Puts a given element into the back of the queue
      *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * @param element the element to be added to the queue
      */
-    public void enqueue(int element) {
-        if (back == maxSize) {
-            back = 0;
+    public void enqueue(E element) throws IndexOutOfBoundsException {
+        if (size == queue.length) {
+            throw new IndexOutOfBoundsException();
+        } else {
+            if (back == queue.length) {
+                back = 0;
+            }
+            queue[back] = element;
+            size++;
+            back++;
         }
-        queue[back] = element;
-        size++;
-        back++;
     }
     
-    public int dequeue() {
-        if (front == maxSize) {
+    /**
+     * Removes the front element in the queue
+     * 
+     * @return the integer of the removed object
+     */
+    public E dequeue() {
+        if (front == queue.length) {
             front = 0;
         }
-        int popNum = queue[front];
         front++;
         size--;
-        return popNum;
+        E dequeue = queue[front];
+        queue[front] = null;
+        return dequeue;
     }
     
+    /**
+     * Checks if the queue is empty
+     * 
+     * @return true if the queue is empty and false if not
+     */
     public boolean isEmpty() {
-        
-        if (size == 0) {
-            return true;
-        } else {
-            return false;
-        }
-        
-        
+        return size == 0;
     }
     
-    public int front() {
+    /**
+     * Gives the element that is in the front of the queue
+     * 
+     * @return the element at the front of the queue
+     */
+    public E front() {
         return queue[front];
     }
     
+    /**
+     * Returns the size of the queue
+     * 
+     * @return the size of the current queue
+     */
     public int size() {
         return size;
     }
     
+    /**
+     * Indicates if the queue cannot add more elements in the queue
+     * 
+     * @return true if the queue is full and false if not
+     */
     public boolean isFull() {
-        if (size == maxSize) {
-            return true;
-        } else {
-            return false;
-        }
+        return size == queue.length;
     }
     
+    /**
+     * Returns the entire queue from front to back in a string
+     * 
+     * @return the elements in the queue from front to back as a string
+     */
     public String toString() {
-        int[] newArr = new int[size];
+        String printQueue = "";
         int cur = front;
         for (int i = 0; i < size; i++) {
-            if (cur == maxSize) {
+            if (cur == queue.length) {
                 cur = 0;
             }
-            newArr[i] = queue[cur];
+            if (i == 0) {
+                printQueue += queue[cur];
+            } else {
+                printQueue += ", " + queue[cur];
+            }
             cur++;
         }
         
-        return Arrays.toString(newArr);
+        return printQueue;
     }
-     public void testQueue() {
-        System.out.println(isEmpty());
-        enqueue(1);
-        System.out.println(toString());
-        System.out.println(isEmpty());
-        System.out.println(isFull());
-        enqueue(2);
-        enqueue(3);
-        enqueue(4);
-        enqueue(5);
-        System.out.println(toString());
-        System.out.println(isEmpty());
-        System.out.println(isFull());
-        System.out.println(front());
-        int i = dequeue();
-        System.out.println(i);
-        dequeue();
-        dequeue();
-        enqueue(9);
-        System.out.println(toString());
-        System.out.println(isEmpty());
-        System.out.println(isFull());
-        System.out.println(front());
-        dequeue();
-        dequeue();
-        dequeue();
-        enqueue(3);
-        enqueue(4);
-        enqueue(5);
-        dequeue();
-        dequeue();
-        System.out.println(toString());
-        System.out.println(isEmpty());
-        System.out.println(isFull());
-        System.out.println(front());
-    }
+    
 }
