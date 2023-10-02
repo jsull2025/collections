@@ -1,19 +1,22 @@
+import java.util.NoSuchElementException;
 
 /**
- * Write a description of class LinkedList here.
+ * Creates a new MyLinkedList implementation with a generic type that is 
+ * used as a data structure to organize, move and change data. This list 
+ * can create nodes at the front and the back of the list and removes the
+ * node at the front.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Jiun
+ * @version 10/2/2023
  */
-
-public class MyLinkedList
+public class MyLinkedList<E>
 {
-    // instance variables - replace the example below with your own
-    private Node head;
+    
+    private Node<E> head;
     private int size;
 
     /**
-     * Constructor for objects of class LinkedList
+     * Constructs a new MyLinkedList as an empty list.
      */
     public MyLinkedList()
     {
@@ -24,66 +27,82 @@ public class MyLinkedList
     }
 
     /**
-     * An example of a method - replace this comment with your own
+     * Adds a new head node at the front of the list 
      *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * @param elem the data of the added head
      */
-    public void addHead(int elem)
-    {
-        // put your code here
-        
-        Node newNode = new Node(elem);
+    public void addHead(E elem) {
+        Node<E> newNode = new Node(elem);
         if (head == null) {
             head = newNode;   
         } else {
-            
            newNode.setNext(head);
            head = newNode;
-            
         }
         size++;
-        
     }
     
-    public int getHead() {
-        return head.getData();
-    }
-    
-    public int removeHead() {
-        Node temp = head;
-        if (head.getNext() == null) {
-            head = null;
+    public E getHead() throws NoSuchElementException {
+        if (head == null) {
+            throw new NoSuchElementException();
         } else {
-            head = head.getNext();
+            return head.getData();
         }
-        size--;
-        return temp.getData();
     }
     
-    public int getSize() {
+    public E removeHead() throws NoSuchElementException {
+        if (head == null) {
+            throw new NoSuchElementException();
+        } else {
+            Node<E> temp = head;
+            if (head.getNext() == null) {
+                head = null;
+            } else {
+                head = head.getNext();
+            }
+            size--;
+            temp.setNext(null);
+            return temp.getData();
+        }
+    }
+    
+    public int size() {
         return size;
     }
     
+    public boolean isEmpty() {
+        return head == null;
+    }
     
+    public void addTail(E elem) {
+        if (head == null) {
+            addHead(elem);
+        } else {
+            Node<E> cur = head;
+            while (cur.getNext() != null) {
+                cur = cur.getNext();
+            }
+            Node<E> newNode = new Node(elem);
+            cur.setNext(newNode);
+            size++;   
+        }
+    }
     
     public String toString() {
         String s = "";
         if (head == null) {
             return s;
-        } 
-        Node cur = head;
-        
-        while (cur != null) {
-            if (cur == head) {
-                s += cur.getData();
-            } else {
-                s += ", " + cur.getData(); 
+        } else {
+            Node<E> cur = head;
+            while (cur != null) {
+                if (cur == head) {
+                    s += cur.getData();
+                } else {
+                    s += ", " + cur.getData(); 
+                }
+                cur = cur.getNext();
             }
-            
-            cur = cur.getNext();
+            return s;
         }
-        
-        return s;
     }
 }

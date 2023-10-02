@@ -1,45 +1,57 @@
-
 /**
- * Write a description of class Node here.
+ * Creates a new Node implementation that is used to store data and is able
+ * to track the node in front of it and it's data.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Jiun
+ * @version 10/2/2023
  */
-public class Node
+public class Node<E>
 {
-    // instance variables - replace the example below with your own
-    private int data;
+    private E data;
     private Node next;
     
     /**
-     * Constructor for objects of class Node
+     * Constructs a new Node that takes in a generic type.
+     * 
+     * @param the element to be the data of the node
      */
-    public Node(int element)
-    {
-        // initialise instance variables
+    public Node(E element) {
         data = element;
     }
 
     /**
-     * An example of a method - replace this comment with your own
+     * Gets the data of this node.
      *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * @return the node data
      */
-    public int getData()
+    public E getData()
     {
-        // put your code here
         return data;
     }
     
-    public Node getNext() {
+    /**
+     * Gets the data of the next node in front.
+     *
+     * @return the next node data
+     */
+    public Node<E> getNext() {
         return next;
     }
     
-    public void setData(int d) {
+    /**
+     * Sets the data of this node to be d.
+     *
+     * @param d the element to be the data
+     */
+    public void setData(E d) {
         data = d;
     }
     
+    /**
+     * Sets another node to be the next node of this node
+     * 
+     * @param n the node to be the next node
+     */
     public void setNext(Node n) {
         next = n;
     }

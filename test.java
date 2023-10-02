@@ -20,11 +20,17 @@ public class test
     {   
         MyLinkedList list = new MyLinkedList();
         // put your code here
+        System.out.println(list.isEmpty());
+        System.out.println(list.size());
         list.addHead(2);
         list.addHead(10);
+        list.addTail(5);
+        System.out.println(list.getHead());
         System.out.println(list.toString());
         System.out.println(list.removeHead());
         System.out.println(list.removeHead());
+        System.out.println(list.isEmpty());
+        System.out.println(list.size());
         
     }
 }
