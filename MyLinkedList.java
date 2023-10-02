@@ -20,7 +20,6 @@ public class MyLinkedList<E>
      */
     public MyLinkedList()
     {
-        // initialise instance variables
         head = null;
         size = 0;
         
@@ -41,7 +40,12 @@ public class MyLinkedList<E>
         }
         size++;
     }
-    
+
+    /**
+     * Gets the data of the node at the front of the list.
+     *
+     * @return the data of the head node
+     */
     public E getHead() throws NoSuchElementException {
         if (head == null) {
             throw new NoSuchElementException();
@@ -49,7 +53,12 @@ public class MyLinkedList<E>
             return head.getData();
         }
     }
-    
+
+    /**
+     * Removes the node at the front of the list.
+     *
+     * @return the data of the removed node
+     */
     public E removeHead() throws NoSuchElementException {
         if (head == null) {
             throw new NoSuchElementException();
@@ -65,15 +74,30 @@ public class MyLinkedList<E>
             return temp.getData();
         }
     }
-    
+
+    /**
+     * Returns the size of the linked list
+     *
+     * @return the size of the list
+     */
     public int size() {
         return size;
     }
-    
+
+    /**
+     * Returns true if the list is empty and false if the list is not
+     *
+     * @return true if list is empty and false otherwise
+     */
     public boolean isEmpty() {
         return head == null;
     }
-    
+
+    /**
+     * Adds a node at the back of the list.
+     *
+     * @param elem the data of the added tail node
+     */
     public void addTail(E elem) {
         if (head == null) {
             addHead(elem);
@@ -87,7 +111,12 @@ public class MyLinkedList<E>
             size++;   
         }
     }
-    
+
+    /**
+     * Returns the linked list as a string of the data from head to tail.
+     *
+     * @return the linked list as a string
+     */
     public String toString() {
         String s = "";
         if (head == null) {
