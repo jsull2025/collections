@@ -32,7 +32,7 @@ public class MyStack<E> {
      * @param element the element to be added to the stack
      */
     public void push(E element) throws IndexOutOfBoundsException{
-        if (size == stack.length) {
+        if (isFull()) {
             throw new IndexOutOfBoundsException();
         } else {
             stack[size] = element;

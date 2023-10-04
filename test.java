@@ -33,4 +33,15 @@ public class test
         System.out.println(list.size());
         
     }
+    
+    public static boolean wellFormedExpressionsMethod(String s) {
+        MyStackLL list = new MyStackLL();
+        String openChars = "{[(";
+        for (int i = 0; i < s.length(); i++) {
+            if (s.substring(i, i + 1).indexOf(openChars)) {
+                list.push("");
+            }
+        }
+        return false;
+    }
 }

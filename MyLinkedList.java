@@ -22,13 +22,12 @@ public class MyLinkedList<E>
     {
         head = null;
         size = 0;
-        
     }
 
     /**
-     * Adds a new head node at the front of the list 
+     * Adds element at front of list 
      *
-     * @param elem the data of the added head
+     * @param elem the element at front of list
      */
     public void addHead(E elem) {
         Node<E> newNode = new Node(elem);
@@ -40,27 +39,15 @@ public class MyLinkedList<E>
         }
         size++;
     }
-
+    
     /**
-     * Gets the data of the node at the front of the list.
-     *
-     * @return the data of the head node
-     */
-    public E getHead() throws NoSuchElementException {
-        if (head == null) {
-            throw new NoSuchElementException();
-        } else {
-            return head.getData();
-        }
-    }
-
-    /**
-     * Removes the node at the front of the list.
-     *
-     * @return the data of the removed node
+     * Removes element at front of list
+     * 
+     * @return removed element
+     * @throws NoSuchElementException if list empty
      */
     public E removeHead() throws NoSuchElementException {
-        if (head == null) {
+        if (isEmpty()) {
             throw new NoSuchElementException();
         } else {
             Node<E> temp = head;
@@ -74,29 +61,25 @@ public class MyLinkedList<E>
             return temp.getData();
         }
     }
-
+    
     /**
-     * Returns the size of the linked list
+     * Get element at front of list
      *
-     * @return the size of the list
+     * @return data at front of list
+     * @throws NoSuchElementException if list empty
      */
-    public int size() {
-        return size;
+    public E getHead() throws NoSuchElementException {
+        if (isEmpty()) {
+            throw new NoSuchElementException();
+        } else {
+            return head.getData();
+        }
     }
-
+    
     /**
-     * Returns true if the list is empty and false if the list is not
+     * Adds element to back of list.
      *
-     * @return true if list is empty and false otherwise
-     */
-    public boolean isEmpty() {
-        return head == null;
-    }
-
-    /**
-     * Adds a node at the back of the list.
-     *
-     * @param elem the data of the added tail node
+     * @param elem the element at back of list
      */
     public void addTail(E elem) {
         if (head == null) {
@@ -113,25 +96,39 @@ public class MyLinkedList<E>
     }
 
     /**
-     * Returns the linked list as a string of the data from head to tail.
+     * Returns size of list
      *
-     * @return the linked list as a string
+     * @return size of list
+     */
+    public int size() {
+        return size;
+    }
+
+    /**
+     * Returns true if list empty or false if not
+     *
+     * @return true if list empty or false otherwise
+     */
+    public boolean isEmpty() {
+        return head == null;
+    }
+
+    /**
+     * Returns list as string of elements from front to back.
+     *
+     * @return list as string from front to back
      */
     public String toString() {
         String s = "";
-        if (head == null) {
-            return s;
-        } else {
-            Node<E> cur = head;
-            while (cur != null) {
-                if (cur == head) {
-                    s += cur.getData();
-                } else {
-                    s += ", " + cur.getData(); 
-                }
-                cur = cur.getNext();
+        Node<E> cur = head;
+        while (cur != null) {
+            if (cur == head) {
+                s += cur.getData();
+            } else {
+                s += ", " + cur.getData(); 
             }
-            return s;
+            cur = cur.getNext();
         }
+        return s;
     }
 }
