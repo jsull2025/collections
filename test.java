@@ -5,7 +5,7 @@
  * @author (your name)
  * @version (a version number or a date)
  */
-public class test
+public class test<E>
 {
     // instance variables - replace the example below with your own
     
@@ -37,11 +37,22 @@ public class test
     public static boolean wellFormedExpressionsMethod(String s) {
         MyStackLL list = new MyStackLL();
         String openChars = "{[(";
+        String closeChars = "}])";
+        
         for (int i = 0; i < s.length(); i++) {
-            if (s.substring(i, i + 1).indexOf(openChars)) {
-                list.push("");
-            }
+            if (openChars.indexOf(s.substring(i, i + 1)) != -1) {
+                list.push(s.substring(i, i + 1));
+            } else if (list.top() == "(" && s.substring(i, i + 1) == ")") {
+                list.pop();
+            } else if ( list.top() == "[" && (String) s.substring(i, i + 1) == "]") {
+                list.pop();
+            } else if ((String) list.top() == "{" && (String) s.substring(i, i + 1) == "}") {
+                list.pop();
+            } else if (closeChars.indexOf(s.substring(i, i + 1)) != -1) {
+                return false;
+            } 
+            
         }
-        return false;
+        return list.isEmpty();
     }
 }
