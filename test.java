@@ -42,11 +42,11 @@ public class test<E>
         for (int i = 0; i < s.length(); i++) {
             if (openChars.indexOf(s.substring(i, i + 1)) != -1) {
                 list.push(s.substring(i, i + 1));
-            } else if (list.top() == "(" && s.substring(i, i + 1) == ")") {
+            } else if (!list.isEmpty() && list.top() == "(" && s.substring(i, i + 1) == ")") {
                 list.pop();
-            } else if ( list.top() == "[" && (String) s.substring(i, i + 1) == "]") {
+            } else if (!list.isEmpty() && list.top() == "[" && s.substring(i, i + 1) == "]") {
                 list.pop();
-            } else if ((String) list.top() == "{" && (String) s.substring(i, i + 1) == "}") {
+            } else if (!list.isEmpty() && list.top() == "{" && s.substring(i, i + 1) == "}") {
                 list.pop();
             } else if (closeChars.indexOf(s.substring(i, i + 1)) != -1) {
                 return false;
