@@ -42,41 +42,30 @@ public class test
         for (int i = 0; i < s.length(); i++) {
             if (openChars.indexOf(s.substring(i, i + 1)) != -1) {
                 list.push(s.substring(i, i + 1));
-
-            } else if (!list.isEmpty() && list.top() == "(" && s.substring(i, i + 1) == ")") {
-=======
             } else if (!list.isEmpty() && list.top().equals("(") && s.substring(i, i + 1).equals(")")) {
->>>>>>> 79d20c23e7b40eace9e64b79bac564e22473b2f1
                 list.pop();
-<<<<<<< HEAD
-            } else if (!list.isEmpty() && list.top() == "[" && s.substring(i, i + 1) == "]") {
-=======
             } else if (!list.isEmpty() && list.top().equals("[") && s.substring(i, i + 1).equals("]")) {
->>>>>>> 79d20c23e7b40eace9e64b79bac564e22473b2f1
                 list.pop();
-<<<<<<< HEAD
-            } else if (!list.isEmpty() && list.top() == "{" && s.substring(i, i + 1) == "}") {
-=======
             } else if (!list.isEmpty() && list.top().equals("{") && s.substring(i, i + 1).equals("}")) {
->>>>>>> 79d20c23e7b40eace9e64b79bac564e22473b2f1
                 list.pop();
             } else if (closeChars.indexOf(s.substring(i, i + 1)) != -1) {
                 return false;
             } 
-            
         }
         return list.isEmpty();
     }
     
-    public static String reversingData(String s) {
+    public static void reversingData(String s) {
         MyQueueLL queue = new MyQueueLL();
         MyStackLL stack = new MyStackLL();
         for (int i = 0; i < s.length(); i++) {
             queue.enqueue(s.substring(i, i + 1));
         }
         System.out.println(queue);
-        while (!queue.isEmpty())
+        while (!queue.isEmpty()) {
+            stack.push(queue.dequeue());
+        }
         
-        return stack.toString();
+        System.out.println(stack);
     }
 }
