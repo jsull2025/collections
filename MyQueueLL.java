@@ -24,15 +24,15 @@ public class MyQueueLL<E>
      * @param  y  a sample parameter for a method
      * @return    the sum of x and y
      */
-    public void push(E element) {
+    public void enqueue(E element) {
         list.addTail(element);
     }
     
-    public E pop() {
+    public E dequeue() {
         return list.removeHead();
     }
     
-    public E top() {
+    public E front() {
         return list.getHead();
     }
     
