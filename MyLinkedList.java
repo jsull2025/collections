@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
  * node at the front.
  *
  * @author Jiun
- * @version 10/2/2023
+ * @version 10/9/2023
  */
 public class MyLinkedList<E>
 {
