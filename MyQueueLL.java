@@ -13,7 +13,7 @@ public class MyQueueLL<E>
     private MyLinkedList<E> list;
 
     /**
-     * Constructs a new queue
+     * Constructs a new queue using a linked list
      */
     public MyQueueLL()
     {
