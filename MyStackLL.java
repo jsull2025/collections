@@ -13,7 +13,7 @@ public class MyStackLL<E>
     private MyLinkedList<E> list;
 
     /**
-     * Constructor for objects of class MyStackLL
+     * Constructs a new Stack using a linked list
      */
     public MyStackLL()
     {
