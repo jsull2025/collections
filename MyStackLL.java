@@ -1,9 +1,11 @@
-
 /**
- * Write a description of class MyStackLL here.
+ * Creates a new Stack implementation that is used as a data structure
+ * to organize and move data using nodes. A stack is performed in
+ * last in first out (LIFO) where the element is added to the top of  
+ * the stack and the element is removed at the top of the stack.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Jiun
+ * @version 10/9/23
  */
 public class MyStackLL<E>
 {
