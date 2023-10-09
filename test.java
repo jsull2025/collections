@@ -66,6 +66,10 @@ public class test
             stack.push(queue.dequeue());
         }
         
-        System.out.println(stack);
+        while (!stack.isEmpty()) {
+            queue.enqueue(stack.pop());
+        }
+        
+        System.out.println(queue);
     }
 }
