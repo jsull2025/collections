@@ -51,11 +51,7 @@ public class MyLinkedList<E>
             throw new NoSuchElementException();
         } else {
             Node<E> temp = head;
-            if (head.getNext() == null) {
-                head = null;
-            } else {
-                head = head.getNext();
-            }
+            head = head.getNext();
             size--;
             temp.setNext(null);
             return temp.getData();
