@@ -13,6 +13,7 @@ public class MyLinkedList<E>
 {
     
     private Node<E> head;
+    private Node<E> tail;
     private int size;
 
     /**
@@ -21,6 +22,7 @@ public class MyLinkedList<E>
     public MyLinkedList()
     {
         head = null;
+        tail = null;
         size = 0;
     }
 
@@ -33,6 +35,7 @@ public class MyLinkedList<E>
         Node<E> newNode = new Node(elem);
         if (head == null) {
             head = newNode;   
+            tail = newNode;
         } else {
            newNode.setNext(head);
            head = newNode;
@@ -52,13 +55,14 @@ public class MyLinkedList<E>
         } else {
             Node<E> temp = head;
             if (head.getNext() == null) {
-                head = null;
-            } else {
-                head = head.getNext();
+                tail = null;
             }
+            head = head.getNext();
             size--;
             temp.setNext(null);
-            return temp.getData();
+            int data = temp.getData();
+            temp.setData(null);
+            return data;
         }
     }
     
@@ -85,14 +89,40 @@ public class MyLinkedList<E>
         if (head == null) {
             addHead(elem);
         } else {
-            Node<E> cur = head;
-            while (cur.getNext() != null) {
-                cur = cur.getNext();
-            }
             Node<E> newNode = new Node(elem);
-            cur.setNext(newNode);
+            tail.setNext(newNode);
+            tail = newNode;
             size++;   
         }
+    }
+    
+    public E get(int index) throws NoSuchElementException {
+        if (index >= size && index < 0) {
+            throw new NoSuchElementException();
+        } else {
+            Node cur = head;
+            for (int i = 0; i < index; i++) {
+                cur = cur.getNext();
+            }
+            return (E) cur.getData();   
+        }
+    }
+    
+    public E remove(int index) throws NoSuchElementException {
+        if (index >= size && index < 0) {
+            throw new NoSuchElementException();
+        } else {
+            if (index == 0) {
+                removeHead();
+            } else {
+                Node cur = head;
+                for (int i = 1; i < index; i++) {
+                    cur = cur.getNext();
+                }    
+                cur.setNext(null);
+                if (cur )
+            }
+        } 
     }
 
     /**

@@ -25,6 +25,12 @@ public class test
         list.addHead(2);
         list.addHead(10);
         list.addTail(5);
+        list.addTail(6);
+        list.addTail(7);
+        System.out.println(list.get(2));
+        System.out.println(list.get(3));
+        System.out.println(list.get(4));
+        System.out.println(list.get(1));
         System.out.println(list.getHead());
         System.out.println(list.toString());
         System.out.println(list.removeHead());
