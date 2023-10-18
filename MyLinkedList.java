@@ -54,9 +54,12 @@ public class MyLinkedList<E>
             throw new NoSuchElementException();
         } else {
             Node<E> temp = head;
+<<<<<<< HEAD
             if (head.getNext() == null) {
                 tail = null;
             }
+=======
+>>>>>>> 4cec84c2626c89f5b9332bd23dd664390e2a6375
             head = head.getNext();
             size--;
             temp.setNext(null);
