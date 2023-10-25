@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
  * @author Jiun
  * @version 10/9/2023
  */
-public class MyLinkedList<E>
+public class MyLinkedList<E extends Comparable<E>>
 {
     
     private Node<E> head;
@@ -54,16 +54,13 @@ public class MyLinkedList<E>
             throw new NoSuchElementException();
         } else {
             Node<E> temp = head;
-<<<<<<< HEAD
             if (head.getNext() == null) {
                 tail = null;
             }
-=======
->>>>>>> 4cec84c2626c89f5b9332bd23dd664390e2a6375
             head = head.getNext();
             size--;
             temp.setNext(null);
-            int data = temp.getData();
+            E data = temp.getData();
             temp.setData(null);
             return data;
         }
@@ -99,35 +96,107 @@ public class MyLinkedList<E>
         }
     }
     
+    /**
+     * Returns element at specified index.
+     *
+     * @param index the index of element
+     * @return element at specific index
+     * @throws NoSuchElementException if index is outside the list
+     */
     public E get(int index) throws NoSuchElementException {
-        if (index >= size && index < 0) {
+        if (index >= size || index < 0) {
             throw new NoSuchElementException();
         } else {
-            Node cur = head;
+            Node<E> cur = head;
             for (int i = 0; i < index; i++) {
                 cur = cur.getNext();
             }
-            return (E) cur.getData();   
+            return cur.getData();   
         }
     }
     
     public E remove(int index) throws NoSuchElementException {
-        if (index >= size && index < 0) {
+        if (index >= size || index < 0) {
             throw new NoSuchElementException();
         } else {
             if (index == 0) {
-                removeHead();
+                return removeHead();
             } else {
-                Node cur = head;
-                for (int i = 1; i < index; i++) {
+                Node<E> cur = head;
+                for (int i = 0; i < index - 1; i++) {
                     cur = cur.getNext();
                 }    
-                cur.setNext(null);
-                if (cur )
+                Node<E> temp = cur.getNext();
+                E data = temp.getData();
+                cur.setNext(cur.getNext().getNext());
+                temp.setData(null);
+                temp.setNext(null);
+                if (cur.getNext() == tail) {
+                    tail = cur;
+                }
+                size--;
+                return data;
             }
         } 
     }
-
+    
+    public void add(int index, E element) {
+        if (index > size || index < 0) {
+            throw new NoSuchElementException();
+        } else {
+            if (index == 0) {
+                addHead(element);
+            } else if (index == size) {
+                addTail(element);
+            } else {
+                Node<E> cur = head;
+                for (int i = 0; i < index - 1; i++) {
+                    cur = cur.getNext();
+                }    
+                size++;
+                Node<E> newNode = new Node(element);
+                newNode.setNext(cur.getNext());
+                cur.setNext(newNode);
+            }
+        }
+    }
+    
+    public void add(E element) {
+        addTail(element);
+    }
+    
+    public void set(int index, E element) {
+        if (index >= size || index < 0) {
+            throw new NoSuchElementException();
+        } else {
+            Node<E> cur = head;
+            for (int i = 0; i < index; i++) {
+                cur = cur.getNext();
+            }
+            cur.setData(element);  
+        }
+    }
+    
+    public void insertSorted(E element) {
+        Node<E> cur = head;
+        int index = 0;
+        while (cur != null && element.compareTo(cur.getData()) > 0) {
+            cur = cur.getNext();
+            index++;
+        }
+        add(index, element);
+    }
+    
+    public E remove(E element) {
+        Node<E> cur = head;
+        int index = 0;
+        while (!(element.compareTo(cur.getData()) == 0 || index == size)) {
+            cur = cur.getNext();
+            index++;
+        }
+        return remove(index);
+    }
+    
     /**
      * Returns size of list
      *
