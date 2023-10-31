@@ -115,6 +115,13 @@ public class MyLinkedList<E extends Comparable<E>>
         }
     }
     
+    /**
+     * Removes and returns element at specified index.
+     *
+     * @param index the index of element
+     * @return element that is removed
+     * @throws NoSuchElementException if index is outside the list
+     */
     public E remove(int index) throws NoSuchElementException {
         if (index >= size || index < 0) {
             throw new NoSuchElementException();
@@ -131,7 +138,7 @@ public class MyLinkedList<E extends Comparable<E>>
                 cur.setNext(cur.getNext().getNext());
                 temp.setData(null);
                 temp.setNext(null);
-                if (cur.getNext() == tail) {
+                if (temp == tail) {
                     tail = cur;
                 }
                 size--;
@@ -140,7 +147,14 @@ public class MyLinkedList<E extends Comparable<E>>
         } 
     }
     
-    public void add(int index, E element) {
+    /**
+     * Inserts element at specified index.
+     *
+     * @param index the index of element
+     * @param element the element added to list
+     * @throws NoSuchElementException if index is outside the list
+     */
+    public void add(int index, E element) throws NoSuchElementException {
         if (index > size || index < 0) {
             throw new NoSuchElementException();
         } else {
@@ -161,11 +175,23 @@ public class MyLinkedList<E extends Comparable<E>>
         }
     }
     
+    /**
+     * Adds element to end of list
+     *
+     * @param elem the element added
+     */
     public void add(E element) {
         addTail(element);
     }
     
-    public void set(int index, E element) {
+    /**
+     * Replaces existing element at specified index.
+     *
+     * @param index the index of element
+     * @param element the element to replace
+     * @throws NoSuchElementException if index is outside the list
+     */
+    public void set(int index, E element) throws NoSuchElementException {
         if (index >= size || index < 0) {
             throw new NoSuchElementException();
         } else {
@@ -177,6 +203,11 @@ public class MyLinkedList<E extends Comparable<E>>
         }
     }
     
+    /**
+     * Inserts element into list.
+     *
+     * @param element the element insorted in order
+     */
     public void insertSorted(E element) {
         Node<E> cur = head;
         int index = 0;
@@ -187,12 +218,22 @@ public class MyLinkedList<E extends Comparable<E>>
         add(index, element);
     }
     
-    public E remove(E element) {
+    /**
+     * Removes and returns first occurrence of matching element.
+     *
+     * @param element the element to be removed
+     * @return element that is removed
+     * @throws NoSuchElementException if element not in list
+     */
+    public E remove(E element) throws NoSuchElementException {
         Node<E> cur = head;
         int index = 0;
         while (!(element.compareTo(cur.getData()) == 0 || index == size)) {
             cur = cur.getNext();
             index++;
+        }
+        if (index == size) {
+            throw new NoSuchElementException();
         }
         return remove(index);
     }
