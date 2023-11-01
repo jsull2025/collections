@@ -223,9 +223,8 @@ public class MyLinkedList<E extends Comparable<E>>
      *
      * @param element the element to be removed
      * @return element that is removed
-     * @throws NoSuchElementException if element not in list
      */
-    public E remove(E element) throws NoSuchElementException {
+    public E remove(E element) {
         Node<E> cur = head;
         int index = 0;
         while (!(element.compareTo(cur.getData()) == 0 || index == size)) {
@@ -233,7 +232,7 @@ public class MyLinkedList<E extends Comparable<E>>
             index++;
         }
         if (index == size) {
-            throw new NoSuchElementException();
+            return null;
         }
         return remove(index);
     }
