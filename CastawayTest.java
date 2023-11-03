@@ -41,7 +41,7 @@ public class CastawayTest
                     firstName[i], score[i], gender[i])); 
         }
         System.out.println(list.toString());
-        Castaway dummy = new Castaway("Howell", "Lovey", 0, "");
+        Castaway dummy = new Castaway("Grumby", "Jonas", 0, "");
         list.remove(dummy);
         System.out.println(list.toString());
     }
