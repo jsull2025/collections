@@ -28,12 +28,17 @@ public class Castaway implements Comparable<Castaway>
      * 
      * @return negative integer, zero, or a positive integer as this 
      * object is less than, equal to, greater than the specified object
+     * @throws NullPointerException if the specified object is null
      */
-    public int compareTo(Castaway other) {
-        if (l.compareTo(other.l) == 0) {
-            return f.compareTo(other.f);
+    public int compareTo(Castaway other) throws NullPointerException {
+        if (other == null) {
+           throw new NullPointerException(); 
         } else {
-            return l.compareTo(other.l);   
+            if (l.compareTo(other.l) == 0) {
+                return f.compareTo(other.f);
+            } else {
+                return l.compareTo(other.l);
+            }
         }
     }
     
@@ -41,9 +46,14 @@ public class Castaway implements Comparable<Castaway>
      * Returns whether last name and first name are equal
      * 
      * @return true if equal or false if not equal
+     * @throws NullPointerException if the specified object is null
      */
     public boolean equals(Castaway other) {
-        return compareTo(other) == 0;
+        if (other == null) {
+           throw new NullPointerException(); 
+        } else {
+            return compareTo(other) == 0;
+        }
     }
     
     /**
