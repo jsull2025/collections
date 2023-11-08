@@ -4,10 +4,11 @@ import java.util.NoSuchElementException;
  * Creates a new MyLinkedList implementation with a generic type that is 
  * used as a data structure to organize, move and change data. This list 
  * can create nodes at the front and the back of the list and removes the
- * node at the front.
+ * node at the front. This is a doubly Linked list, meaning each node will
+ * be able to traverse backwards and forwards.
  *
  * @author Jiun
- * @version 10/9/2023
+ * @version 11/13/2023
  */
 public class MyLinkedList<E extends Comparable<E>>
 {
@@ -77,16 +78,13 @@ public class MyLinkedList<E extends Comparable<E>>
             } else if (index == size) {
                 addTail(element);
             } else {
-                Node<E> cur = head;
-                for (int i = 0; i < index - 1; i++) {
-                    cur = cur.getNext();
-                }    
+                Node<E> cur = findIndexNode(index - 1);
                 size++;
                 Node<E> newNode = new Node(element);
                 newNode.setPrev(cur);
-                cur.getNext().setPrev(newNode);
                 newNode.setNext(cur.getNext());
                 cur.setNext(newNode);
+                newNode.getNext().setPrev(newNode);
             }
         }
     }
@@ -111,10 +109,12 @@ public class MyLinkedList<E extends Comparable<E>>
             throw new NoSuchElementException();
         } else {
             Node<E> temp = head;
-            if (head.getNext() == null) {
-                tail = null;
-            }
             head = head.getNext();
+            if (head == null) {
+                tail = null;
+            } else {
+                head.setPrev(null);
+            }
             size--;
             temp.setNext(null);
             E data = temp.getData();
@@ -137,17 +137,18 @@ public class MyLinkedList<E extends Comparable<E>>
             if (index == 0) {
                 return removeHead();
             } else {
-                Node<E> cur = head;
-                for (int i = 0; i < index - 1; i++) {
-                    cur = cur.getNext();
-                }    
+                
+                Node<E> cur = findIndexNode(index - 1);
                 Node<E> temp = cur.getNext();
                 E data = temp.getData();
                 cur.setNext(cur.getNext().getNext());
                 temp.setData(null);
                 temp.setNext(null);
+                temp.setPrev(null);
                 if (temp == tail) {
                     tail = cur;
+                } else {
+                    cur.getNext().setPrev(cur);
                 }
                 size--;
                 return data;
@@ -199,10 +200,8 @@ public class MyLinkedList<E extends Comparable<E>>
         if (index >= size || index < 0) {
             throw new NoSuchElementException();
         } else {
-            Node<E> cur = head;
-            for (int i = 0; i < index; i++) {
-                cur = cur.getNext();
-            }
+            
+            Node<E> cur = findIndexNode(index);
             return cur.getData();   
         }
     }
@@ -218,12 +217,24 @@ public class MyLinkedList<E extends Comparable<E>>
         if (index >= size || index < 0) {
             throw new NoSuchElementException();
         } else {
-            Node<E> cur = head;
+            Node<E> cur = findIndexNode(index);
+            cur.setData(element);  
+        }
+    }
+    
+    private Node findIndexNode(int index) {
+        Node<E> cur = head;
+        if (size/2 > index) {
             for (int i = 0; i < index; i++) {
                 cur = cur.getNext();
             }
-            cur.setData(element);  
+        } else {
+            cur = tail;
+            for (int i = size() - 1; i > index; i--) {
+                cur = cur.getPrev();
+            }
         }
+        return cur;
     }
     
     /**

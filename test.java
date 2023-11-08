@@ -47,6 +47,30 @@ public class test
         
     }
     
+    public static void testDLL()
+    {   
+        MyLinkedList list = new MyLinkedList();
+        list.addHead(3);
+        list.insertSorted(0);
+        list.insertSorted(7);
+        list.remove(2);
+        list.remove(1);
+        list.remove(0);
+        System.out.println(list.toString());
+        list.remove(3);
+
+
+        
+
+        
+        
+    }
+    
+      
+        
+        
+    
+    
     
    
 }
