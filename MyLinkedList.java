@@ -34,15 +34,16 @@ public class MyLinkedList<E extends Comparable<E>>
      */
     public void addHead(E elem) {
         Node<E> newNode = new Node(elem);
-        if (head == null) {
+        if (head == null) { // empty use case
             head = newNode;   
             tail = newNode;
-        } else {
+        } else { // not empty use case
            newNode.setNext(head);
            head.setPrev(newNode);
            head = newNode;
         }
         size++;
+        integrityCheck();
     }
     
     /**
@@ -51,15 +52,16 @@ public class MyLinkedList<E extends Comparable<E>>
      * @param elem the element at back of list
      */
     public void addTail(E elem) {
-        if (head == null) {
+        if (head == null) { // empty use case
             addHead(elem);
-        } else {
+        } else { // not empty use case
             Node<E> newNode = new Node(elem);
             newNode.setPrev(tail);
             tail.setNext(newNode);
             tail = newNode;
             size++;   
         }
+        integrityCheck();
     }
     
     /**
@@ -70,15 +72,15 @@ public class MyLinkedList<E extends Comparable<E>>
      * @throws NoSuchElementException if index is outside the list
      */
     public void add(int index, E element) throws NoSuchElementException {
-        if (index > size || index < 0) {
+        if (index > size || index < 0) { // validation
             throw new NoSuchElementException();
         } else {
-            if (index == 0) {
+            if (index == 0) { // add to front use case
                 addHead(element);
-            } else if (index == size) {
+            } else if (index == size) { // add to back use case
                 addTail(element);
-            } else {
-                Node<E> cur = findIndexNode(index - 1);
+            } else { // add in middle use case
+                Node<E> cur = findNode(index - 1);
                 size++;
                 Node<E> newNode = new Node(element);
                 newNode.setPrev(cur);
@@ -87,142 +89,16 @@ public class MyLinkedList<E extends Comparable<E>>
                 newNode.getNext().setPrev(newNode);
             }
         }
+        integrityCheck();
     }
     
     /**
-     * Adds element to end of list
+     * Traverses the list to find node at certain index
      *
-     * @param elem the element added
+     * @param index the index of the node to be found
+     * @return Node at that index in list
      */
-    public void add(E element) {
-        addTail(element);
-    }
-    
-    /**
-     * Removes element at front of list
-     * 
-     * @return removed element
-     * @throws NoSuchElementException if list empty
-     */
-    public E removeHead() throws NoSuchElementException {
-        if (isEmpty()) {
-            throw new NoSuchElementException();
-        } else {
-            Node<E> temp = head;
-            head = head.getNext();
-            if (head == null) {
-                tail = null;
-            } else {
-                head.setPrev(null);
-            }
-            size--;
-            temp.setNext(null);
-            E data = temp.getData();
-            temp.setData(null);
-            return data;
-        }
-    }
-    
-    /**
-     * Removes and returns element at specified index.
-     *
-     * @param index the index of element
-     * @return element that is removed
-     * @throws NoSuchElementException if index is outside the list
-     */
-    public E remove(int index) throws NoSuchElementException {
-        if (index >= size || index < 0) {
-            throw new NoSuchElementException();
-        } else {
-            if (index == 0) {
-                return removeHead();
-            } else {
-                
-                Node<E> cur = findIndexNode(index - 1);
-                Node<E> temp = cur.getNext();
-                E data = temp.getData();
-                cur.setNext(cur.getNext().getNext());
-                temp.setData(null);
-                temp.setNext(null);
-                temp.setPrev(null);
-                if (temp == tail) {
-                    tail = cur;
-                } else {
-                    cur.getNext().setPrev(cur);
-                }
-                size--;
-                return data;
-            }
-        } 
-    }
-    
-    /**
-     * Removes and returns first occurrence of matching element.
-     *
-     * @param element the element to be removed
-     * @return element that is removed
-     */
-    public E remove(E element) {
-        Node<E> cur = head;
-        int index = 0;
-        while (!(element.compareTo(cur.getData()) == 0 || index == size)) {
-            cur = cur.getNext();
-            index++;
-        }
-        if (index == size) {
-            return null;
-        }
-        return remove(index);
-    }
-    
-    /**
-     * Get element at front of list
-     *
-     * @return data at front of list
-     * @throws NoSuchElementException if list empty
-     */
-    public E getHead() throws NoSuchElementException {
-        if (isEmpty()) {
-            throw new NoSuchElementException();
-        } else {
-            return head.getData();
-        }
-    }
-    
-    /**
-     * Returns element at specified index.
-     *
-     * @param index the index of element
-     * @return element at specific index
-     * @throws NoSuchElementException if index is outside the list
-     */
-    public E get(int index) throws NoSuchElementException {
-        if (index >= size || index < 0) {
-            throw new NoSuchElementException();
-        } else {
-            
-            Node<E> cur = findIndexNode(index);
-            return cur.getData();   
-        }
-    }
-    
-    /**
-     * Replaces existing element at specified index.
-     *
-     * @param index the index of element
-     * @param element the element to replace
-     * @throws NoSuchElementException if index is outside the list
-     */
-    public void set(int index, E element) throws NoSuchElementException {
-        if (index >= size || index < 0) {
-            throw new NoSuchElementException();
-        } else {
-            Node<E> cur = findIndexNode(index);
-            cur.setData(element);  
-        }
-    }
-    
-    private Node findIndexNode(int index) {
+    private Node findNode(int index) {
         Node<E> cur = head;
         if (size/2 > index) {
             for (int i = 0; i < index; i++) {
@@ -234,7 +110,41 @@ public class MyLinkedList<E extends Comparable<E>>
                 cur = cur.getPrev();
             }
         }
+        integrityCheck();
         return cur;
+    }
+    
+    private void integrityCheck() {
+        Node cur = head;
+        for (int i = 0; i < size(); i++) {
+            if (cur == head && cur == tail) {
+                if (!((cur.getPrev() == null) && (cur.getNext() == null))) {
+                    System.out.println("error");
+                }
+            } else if (cur == head) {
+                if (!((cur.getPrev() == null) && (cur.getNext().getPrev() == cur))) {
+                    System.out.println("error");
+                }
+            } else if (cur == tail) {
+                if (!((cur.getNext() == null) && (cur.getPrev().getNext() == cur))) {
+                    System.out.println("error");
+                }
+            } else {
+                if (!((cur.getNext().getPrev() == cur) && (cur.getPrev().getNext() == cur))) {
+                    System.out.println("error");
+                }
+            }
+        }
+    }
+    
+    /**
+     * Adds element to end of list
+     *
+     * @param elem the element added
+     */
+    public void add(E element) { 
+        addTail(element);
+        integrityCheck();
     }
     
     /**
@@ -250,6 +160,135 @@ public class MyLinkedList<E extends Comparable<E>>
             index++;
         }
         add(index, element);
+        integrityCheck();
+    }
+    
+    /**
+     * Removes element at front of list
+     * 
+     * @return removed element
+     * @throws NoSuchElementException if list empty
+     */
+    public E removeHead() throws NoSuchElementException {
+        if (isEmpty()) { // empty list use case
+            throw new NoSuchElementException();
+        } else { 
+            Node<E> temp = head;
+            head = head.getNext();
+            if (head == null) { // only 1 element use case
+                tail = null;
+            } else { // multiple element use case 
+                head.setPrev(null);
+            }
+            size--;
+            temp.setNext(null);
+            E data = temp.getData();
+            temp.setData(null);
+            integrityCheck();
+            return data;
+        }
+    }
+    
+    /**
+     * Removes and returns element at specified index.
+     *
+     * @param index the index of element
+     * @return element that is removed
+     * @throws NoSuchElementException if index is outside the list
+     */
+    public E remove(int index) throws NoSuchElementException {
+        if (index >= size || index < 0) { // validation
+            throw new NoSuchElementException();
+        } else {
+            if (index == 0) { // remove front use case
+                return removeHead();
+            } else {
+                Node<E> cur = findNode(index - 1);
+                Node<E> temp = cur.getNext();
+                E data = temp.getData();
+                cur.setNext(cur.getNext().getNext());
+                temp.setData(null);
+                temp.setNext(null);
+                temp.setPrev(null);
+                if (temp == tail) { // remove back use case
+                    tail = cur;
+                } else {
+                    cur.getNext().setPrev(cur);
+                }
+                size--;
+                integrityCheck();
+                return data;
+            }
+        } 
+    }
+    
+    /**
+     * Removes and returns first occurrence of matching element.
+     *
+     * @param element the element to be removed
+     * @return element that is removed
+     */
+    public E remove(E element) {
+        Node<E> cur = head;
+        int index = 0;
+        while (!(index == size || element.compareTo(cur.getData()) == 0)) { 
+            cur = cur.getNext();
+            index++;
+        }
+        integrityCheck();
+        if (index == size) { // not found use case
+            return null;
+        }
+        return remove(index);
+    }
+    
+    /**
+     * Get element at front of list
+     *
+     * @return data at front of list
+     * @throws NoSuchElementException if list empty
+     */
+    public E getHead() throws NoSuchElementException {
+        if (isEmpty()) { // empty use case
+            throw new NoSuchElementException();
+        } else { // not empty use case
+            integrityCheck();
+            return head.getData();
+        }
+    }
+    
+    /**
+     * Returns element at specified index.
+     *
+     * @param index the index of element
+     * @return element at specific index
+     * @throws NoSuchElementException if index is outside the list
+     */
+    public E get(int index) throws NoSuchElementException {
+        if (index >= size || index < 0) { // validation
+            throw new NoSuchElementException();
+        } else {
+            Node<E> cur = findNode(index);
+            integrityCheck();
+            return cur.getData();   
+        }
+    }
+    
+    /**
+     * Replaces existing element at specified index.
+     *
+     * @param index the index of element
+     * @param element the element to replace
+     * @throws NoSuchElementException if index is outside the list
+     */
+    public void set(int index, E element) throws NoSuchElementException {
+        if (index >= size || index < 0) { // validation
+            throw new NoSuchElementException();
+        } else {
+            Node<E> cur = findNode(index);
+            cur.setData(element);  
+        }
+        integrityCheck();
     }
     
     /**
@@ -267,6 +306,7 @@ public class MyLinkedList<E extends Comparable<E>>
      * @return true if list empty or false otherwise
      */
     public boolean isEmpty() {
+        integrityCheck();
         return head == null;
     }
 
@@ -286,6 +326,7 @@ public class MyLinkedList<E extends Comparable<E>>
             }
             cur = cur.getNext();
         }
+        integrityCheck();
         return s;
     }
 }
