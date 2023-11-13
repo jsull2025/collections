@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Write a description of class test here.
@@ -47,16 +49,6 @@ public class test
         
     }
     
-    public static void testDLL()
-    {   
-        MyLinkedList list = new MyLinkedList();
-        list.remove(new Integer(5));
-      
-        System.out.println(list.toString());
-    
-        
-        
-    }
     
       
         
