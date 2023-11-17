@@ -42,7 +42,11 @@ public class BinarySearchTree<E extends Comparable<E>>
      * @return the searched element
      */
     public E search(E elem) {
-        return root.search(elem);
+        if (root == null) {
+            return null;
+        } else {
+            return root.search(elem);
+        }
     }
     
     /**
@@ -61,6 +65,19 @@ public class BinarySearchTree<E extends Comparable<E>>
      */
     public E getMax() {
         return root.getMax();
+    }
+    
+    public E remove(E element) {
+        if (root == null) {
+            return null;
+        } else if (search(element) == null) {
+            return null;
+        }
+        E removeElement = root.search(element); 
+        root = root.remove(element);
+        size--;
+        return removeElement;
+        
     }
     
     /**
@@ -82,6 +99,10 @@ public class BinarySearchTree<E extends Comparable<E>>
     }
     
     public String toString() {
-        return "";
+        return root.toString();
+    }
+    
+    public int getDepth() {
+        return root.getDepth();
     }
 }

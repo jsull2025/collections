@@ -91,4 +91,53 @@ public class BinarySearchTreeNode<E extends Comparable<E>>
             return right.getMax();
         }
     }
+    
+    public BinarySearchTreeNode remove(E element) {
+        if (data == element) { // base case
+            if (left == null && right == null) {
+                return null;
+            } else if (left != null && right == null) {
+                return left;
+            } else {
+                return right;
+            }
+        } else {
+            if (element.compareTo(data) <= 0) {
+                if (left != null) {
+                    left = left.remove(element);
+                }
+            } else {
+                if (right != null) {
+                    right = right.remove(element); 
+                }
+            }
+        }
+        
+        return this;
+    }
+    
+    public int getDepth() {
+        int depth = 1;
+        if (left == null && right == null) {
+            return depth;
+        } else if (left != null && (right == null || 
+                        left.getDepth() > right.getDepth())) {
+            return depth + left.getDepth();
+        } else {
+            return depth + right.getDepth();
+        }
+    }
+    
+    public String toString() {
+        String s = "";
+        if (left != null) {
+            s += left.toString() + ", ";
+        } 
+        s += data;
+        if (right != null) {
+            s += ", " + right.toString();
+        } 
+        return s;
+    }
+    
 }

@@ -26,15 +26,21 @@ public class test
         tree.insert(5);
         tree.insert(4);
         tree.insert(2);
+        tree.insert(1);
+        tree.insert(-1);
+        tree.insert(-2);
         System.out.println(tree.size());
         tree.insert(3);
         tree.insert(6);
         tree.insert(10);
         tree.insert(8);
+        tree.insert(11);
         System.out.println(tree.getMin());
         System.out.println(tree.getMax());
         System.out.println(tree.size());
         System.out.println(tree.isEmpty());
+        System.out.println(tree.toString());
+        System.out.println(tree.getDepth());
     }
     
     
