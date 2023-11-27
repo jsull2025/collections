@@ -25,12 +25,9 @@ public class test
         System.out.println(tree.size());
         tree.insert(5);
         tree.insert(4);
-        tree.insert(2);
         tree.insert(1);
-        tree.insert(-1);
-        tree.insert(-2);
-        System.out.println(tree.size());
         tree.insert(3);
+        tree.insert(2);
         tree.insert(6);
         tree.insert(10);
         tree.insert(8);
@@ -41,6 +38,11 @@ public class test
         System.out.println(tree.isEmpty());
         System.out.println(tree.toString());
         System.out.println(tree.getDepth());
+        tree.printTree();
+        tree.remove(5);
+        tree.printTree();
+        tree.remove(4);
+        tree.printTree();
     }
     
     

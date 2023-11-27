@@ -67,6 +67,10 @@ public class BinarySearchTree<E extends Comparable<E>>
         return root.getMax();
     }
     
+    public void printTree() {
+        root.printTree(2);
+    }
+    
     public E remove(E element) {
         if (root == null) {
             return null;
