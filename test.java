@@ -47,6 +47,10 @@ public class test
         tree.printTree();
         tree.remove(6);
         tree.printTree();
+        tree.removeMax();
+        tree.printTree();
+        tree.removeMin();
+        tree.printTree();
     }
     
     public static void testBST() {

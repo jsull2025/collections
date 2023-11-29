@@ -92,7 +92,8 @@ public class BinarySearchTreeNode<E extends Comparable<E>>
         }
     }
     
-      /**     * Prints elements as stored in the tree
+    /**    
+    * Prints elements as stored in the tree
      *
      * @param maxElementWidth The maximum space allowed for the string form
      *                        of the element.
