@@ -182,19 +182,26 @@ public class BinarySearchTreeNode<E extends Comparable<E>>
         }
     }
     
-    public BinarySearchTreeNode removeMax() {
-        if (right == null) { // base case
-            if (left == null) {
-                data = null;
-                return null;
-            } else {
-                return left;
-            }
+    /**
+     * Returns the node that the parent should point to after being removed.
+     *
+     * @return the maximum element's left leaf
+     */
+    public BinarySearchTreeNode<E> removeMax() {
+        if (right == null) {
+            return left;
         } else {
-            return right.removeMax();
+            right = right.removeMax();
+            return this;
         }
     }
     
+    /**
+     * Removes and returns node of matching element.
+     *
+     * @param element element to be removed
+     * @return the node of matching element
+     */
     public BinarySearchTreeNode remove(E element) {
         if (data == element) { // base case
             if (left == null && right == null) {
@@ -205,10 +212,12 @@ public class BinarySearchTreeNode<E extends Comparable<E>>
                 return right;
             } else { // 2 children
                 data = left.getMax();
-                return left.removeMax();
+                left = left.removeMax();
+                
+                
             }
         } else {
-            if (element.compareTo(data) <= 0) {
+            if (element.compareTo(data) < 0) {
                 if (left != null) {
                     left = left.remove(element);
                 }
@@ -222,6 +231,11 @@ public class BinarySearchTreeNode<E extends Comparable<E>>
         return this;
     }
     
+    /**
+     * Returns number of levels in BST.
+     *
+     * @return number of levels
+     */
     public int getDepth() {
         int depth = 1;
         if (left == null && right == null) {
@@ -234,6 +248,12 @@ public class BinarySearchTreeNode<E extends Comparable<E>>
         }
     }
     
+    
+    /**
+     * Returns elements in sorted order.
+     *
+     * @return elements in sorted order
+     */
     public String toString() {
         String s = "";
         if (left != null) {

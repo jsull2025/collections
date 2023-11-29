@@ -43,6 +43,22 @@ public class test
         tree.printTree();
         tree.remove(4);
         tree.printTree();
+        tree.remove(10);
+        tree.printTree();
+        tree.remove(6);
+        tree.printTree();
+    }
+    
+    public static void testBST() {
+        Random rand = new Random();
+        BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
+        for (int i = 0; i < 10; i++) {
+            bst.insert(rand.nextInt(10));
+        }
+        bst.printTree();
+        bst.remove(3);
+        System.out.println("Divider");
+        bst.printTree();
     }
     
     
