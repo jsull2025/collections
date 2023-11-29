@@ -26,6 +26,7 @@ public class test
         tree.insert(5);
         tree.insert(4);
         tree.insert(1);
+        System.out.println(tree.getDepth());
         tree.insert(3);
         tree.insert(2);
         tree.insert(6);
@@ -51,20 +52,12 @@ public class test
         tree.printTree();
         tree.removeMin();
         tree.printTree();
+        tree.removeMin();
+        tree.printTree();
+        tree.removeMin();
+        tree.printTree();
+        tree.removeMin();
     }
-    
-    public static void testBST() {
-        Random rand = new Random();
-        BinarySearchTree<Integer> bst = new BinarySearchTree<Integer>();
-        for (int i = 0; i < 10; i++) {
-            bst.insert(rand.nextInt(10));
-        }
-        bst.printTree();
-        bst.remove(3);
-        System.out.println("Divider");
-        bst.printTree();
-    }
-    
     
       
         

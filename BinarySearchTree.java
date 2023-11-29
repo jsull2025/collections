@@ -55,7 +55,11 @@ public class BinarySearchTree<E extends Comparable<E>>
      * @return the minimum element
      */
     public E getMin() {
-        return root.getMin();
+        if (root == null) {
+            return null;
+        } else {
+            return root.getMin();
+        }
     }
     
     /**
@@ -64,14 +68,22 @@ public class BinarySearchTree<E extends Comparable<E>>
      * @return the maximum element
      */
     public E getMax() {
-        return root.getMax();
+        if (root == null) {
+            return null;
+        } else {
+            return root.getMax();
+        }
     }
     
     /**
      * Prints the tree
      */
     public void printTree() {
-        root.printTree(2);
+        if (root == null) {
+            System.out.println("Empty Tree");
+        } else {
+            root.printTree(2);   
+        }
     }
     
     /**
@@ -99,9 +111,13 @@ public class BinarySearchTree<E extends Comparable<E>>
      * @return minimum element
      */
     public E removeMin() {
-        E removeElement = root.search(getMin());
-        remove(getMin());
-        return removeElement;
+        if (root == null) {
+            return null;
+        } else {
+            E removeElement = root.search(getMin());
+            remove(getMin());
+            return removeElement;
+        }
     }
     
     /**
@@ -110,9 +126,13 @@ public class BinarySearchTree<E extends Comparable<E>>
      * @return maximum element
      */
     public E removeMax() {
-        E removeElement = root.search(getMax());
-        remove(getMax());
-        return removeElement;
+        if (root == null) {
+            return null;
+        } else {
+            E removeElement = root.search(getMax());
+            remove(getMax());
+            return removeElement;   
+        }
     }
     
     /**
@@ -139,7 +159,11 @@ public class BinarySearchTree<E extends Comparable<E>>
      * @return the elements in the tree in sorted order
      */
     public String toString() {
-        return root.toString();
+        if (root == null) {
+            return "";
+        } else {
+            return root.toString();   
+        }
     }
     
     /**
@@ -148,6 +172,10 @@ public class BinarySearchTree<E extends Comparable<E>>
      * @return the levels in BST
      */
     public int getDepth() {
-        return root.getDepth();
+        if (root == null) {
+            return 0;
+        } else {
+            return root.getDepth();    
+        }
     }
 }

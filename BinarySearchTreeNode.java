@@ -198,6 +198,20 @@ public class BinarySearchTreeNode<E extends Comparable<E>>
     }
     
     /**
+     * Returns the node that the parent should point to after being removed.
+     *
+     * @return the maximum element's right leaf
+     */
+    public BinarySearchTreeNode<E> removeMin() {
+        if (left == null) {
+            return right;
+        } else {
+            left = left.removeMax();
+            return this;
+        }
+    }
+    
+    /**
      * Removes and returns node of matching element.
      *
      * @param element element to be removed
@@ -214,8 +228,6 @@ public class BinarySearchTreeNode<E extends Comparable<E>>
             } else { // 2 children
                 data = left.getMax();
                 left = left.removeMax();
-                
-                
             }
         } else {
             if (element.compareTo(data) < 0) {
@@ -228,7 +240,6 @@ public class BinarySearchTreeNode<E extends Comparable<E>>
                 }
             }
         }
-        
         return this;
     }
     
@@ -238,17 +249,16 @@ public class BinarySearchTreeNode<E extends Comparable<E>>
      * @return number of levels
      */
     public int getDepth() {
-        int depth = 1;
-        if (left == null && right == null) {
-            return depth;
-        } else if (left != null && (right == null || 
-                        left.getDepth() > right.getDepth())) {
-            return depth + left.getDepth();
-        } else {
-            return depth + right.getDepth();
+        int leftDepth = 0;
+        int rightDepth = 0;
+        if (left != null) {
+            leftDepth = left.getDepth();
         }
+        if (right != null) {
+            rightDepth = right.getDepth();
+        }
+        return Math.max(leftDepth, rightDepth) + 1;
     }
-    
     
     /**
      * Returns elements in sorted order.
@@ -266,5 +276,4 @@ public class BinarySearchTreeNode<E extends Comparable<E>>
         } 
         return s;
     }
-    
 }
