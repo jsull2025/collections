@@ -23,13 +23,13 @@ public class test
         BinarySearchTree tree = new BinarySearchTree();
         System.out.println(tree.isEmpty());
         System.out.println(tree.size());
-        tree.insert(5);
         tree.insert(4);
-        tree.insert(1);
-        System.out.println(tree.getDepth());
         tree.insert(3);
-        tree.insert(2);
         tree.insert(6);
+        System.out.println(tree.getDepth());
+        tree.insert(2);
+        tree.insert(2);
+        tree.insert(5);
         tree.insert(10);
         tree.insert(8);
         tree.insert(11);
@@ -59,7 +59,25 @@ public class test
         tree.removeMin();
     }
     
-      
+    public static void test2() {
+        MyLinkedList list = new MyLinkedList();
+        BinarySearchTree tree = new BinarySearchTree();
+        list.add(5);
+        list.add(2);
+        list.add(3);
+        list.add(9);
+        list.add(7);
+        list.add(1);
+        System.out.println(list.toString());
+        for (int i = 0; i < list.size(); i++) {
+            tree.insert(list.get(i));
+        }
+        String s = "";
+        for (int i = 0; i < list.size(); i++) {
+            s += tree.removeMin() + ", ";
+        }
+        System.out.println(s);
+    }
         
         
     

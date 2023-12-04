@@ -102,7 +102,6 @@ public class BinarySearchTree<E extends Comparable<E>>
         root = root.remove(element);
         size--;
         return removeElement;
-        
     }
     
     /**
@@ -114,9 +113,7 @@ public class BinarySearchTree<E extends Comparable<E>>
         if (root == null) {
             return null;
         } else {
-            E removeElement = root.search(getMin());
-            remove(getMin());
-            return removeElement;
+            return remove(getMin());
         }
     }
     
@@ -129,9 +126,7 @@ public class BinarySearchTree<E extends Comparable<E>>
         if (root == null) {
             return null;
         } else {
-            E removeElement = root.search(getMax());
-            remove(getMax());
-            return removeElement;   
+            return remove(getMax());   
         }
     }
     
@@ -154,19 +149,6 @@ public class BinarySearchTree<E extends Comparable<E>>
     }
     
     /**
-     * Returns elements in sorted order.
-     *
-     * @return the elements in the tree in sorted order
-     */
-    public String toString() {
-        if (root == null) {
-            return "";
-        } else {
-            return root.toString();   
-        }
-    }
-    
-    /**
      * Returns number of levels in BST.
      *
      * @return the levels in BST
@@ -176,6 +158,19 @@ public class BinarySearchTree<E extends Comparable<E>>
             return 0;
         } else {
             return root.getDepth();    
+        }
+    }
+    
+    /**
+     * Returns elements in sorted order.
+     *
+     * @return the elements in the tree in sorted order
+     */
+    public String toString() {
+        if (root == null) {
+            return "";
+        } else {
+            return root.toString();   
         }
     }
 }
