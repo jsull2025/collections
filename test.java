@@ -11,7 +11,36 @@ public class test
 {
     // instance variables - replace the example below with your own
     
-
+    public static void sampleMethod2()
+    {   
+        MyHeap heap = new MyHeap();
+        System.out.println(heap.isEmpty());
+        System.out.println(heap.size());
+        heap.add(3);
+        heap.add(4);
+        heap.printTree(2);
+        heap.add(6);
+        heap.add(2);
+        heap.printTree(2);
+        heap.add(1);
+        heap.add(9);
+        heap.printTree(2);
+        heap.add(10);
+        heap.add(11);
+        heap.printTree(2);
+        System.out.println(heap.toString());
+        heap.removeMin();
+        heap.printTree(2);
+        heap.removeMin();
+        heap.printTree(2);
+        heap.removeMin();
+        heap.printTree(2);
+        heap.removeMin();
+        heap.printTree(2);
+        heap.removeMin();
+        heap.printTree(2);
+        
+    }
     /**
      * An example of a method - replace this comment with your own
      *
