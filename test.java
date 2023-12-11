@@ -27,6 +27,9 @@ public class test
         heap.printTree(2);
         heap.add(10);
         heap.add(11);
+        heap.add(2);
+        heap.add(2);
+        heap.add(2);
         heap.printTree(2);
         System.out.println(heap.toString());
         heap.removeMin();

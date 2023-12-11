@@ -1,9 +1,11 @@
-
+import java.util.Arrays;
 /**
- * Write a description of class MyHeap here.
+ * Creates a new Heap implementation with a generic type that is used
+ * as a data structure to add and remove elements. Each parent in the
+ * binary heap will have bigger elements as its child.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author jiun
+ * @version 12/11/2023
  */
 public class MyHeap<E extends Comparable<E>>
 {
@@ -15,21 +17,24 @@ public class MyHeap<E extends Comparable<E>>
      */
     public MyHeap() {
         // initialise instance variables
-        arr = (E[]) new Comparable[100];
+        arr = (E[]) new Comparable[10];
         lastNode = -1;
     }
 
     /**
-     * An example of a method - replace this comment with your own
+     * Adds element to heap
      *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * @param  elem the element to be added
      */
     public void add(E elem) {
         if (isEmpty()) {
             arr[0] = elem;
             lastNode++;
         } else {
+            if (arr.length/3 == size()) {
+                E[] arr2 = Arrays.copyOf(arr, arr.length + 10);
+                arr = arr2;
+            }
             lastNode++;
             int child = lastNode;
             int parent = (child - 1)/2;
@@ -44,11 +49,22 @@ public class MyHeap<E extends Comparable<E>>
         }
     }
     
+    /**
+     * Gets minimum element from heap
+     *
+     * @return the minimum element in the heap
+     */
     public E getMin() {
         return arr[0];
     }
     
-    public E removeMin() {
+    /**
+     * Removes and returns minimum element from heap
+     *
+     * @return the removed minimum element
+     * @throws NullPointerException if heap is empty
+     */
+    public E removeMin() throws NullPointerException {
         if (isEmpty()) {
             throw new NullPointerException();
         } else {
@@ -168,14 +184,29 @@ public class MyHeap<E extends Comparable<E>>
         }
     }
     
+    /**
+     * Returns number of elements in heap
+     *
+     * @return the removed minimum element
+     */
     public int size() {
         return lastNode + 1;
     }
     
+    /**
+     * Indicates whether heap is empty.
+     *
+     * @return true if heap empty and false if heap is not empty
+     */
     public boolean isEmpty() {
         return lastNode == -1;
     }
     
+    /**
+     * Returns the content of the heap for testing purposes
+     *
+     * @return the heap in a string
+     */
     public String toString() {
         String string = "";
         for (int i = 0; i < size(); i++) {
